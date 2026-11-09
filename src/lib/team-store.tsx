@@ -31,6 +31,7 @@ type TeamContextValue = TeamData & {
   ) => void;
   addEvent: (event: { title: string; date: string; time: string; place: string; note: string }) => void;
   addLadder: (record: LadderRecord) => void;
+  addDice: (faces: number[]) => void;
   resetDemo: () => void;
 };
 
@@ -44,7 +45,7 @@ export function TeamProvider({ children }: { children: ReactNode }) {
     const saved = window.localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
-        setData(JSON.parse(saved) as TeamData);
+        setData(normalizeTeam(JSON.parse(saved)));
       } catch {
         setData(cloneSeed());
       }
@@ -124,7 +125,20 @@ export function TeamProvider({ children }: { children: ReactNode }) {
       addLadder: (record) =>
         setData((current) => ({
           ...current,
-          ladders: [record, ...current.ladders],
+          ladders: [...current.ladders, { ...record, createdAt: record.createdAt || new Date().toISOString() }],
+        })),
+      addDice: (faces) =>
+        setData((current) => ({
+          ...current,
+          dice: [
+            ...current.dice,
+            {
+              id: `d_${crypto.randomUUID().slice(0, 8)}`,
+              date: new Date().toISOString().slice(0, 10),
+              createdAt: new Date().toISOString(),
+              faces,
+            },
+          ],
         })),
       resetDemo: () => setData(cloneSeed()),
     }),
@@ -132,6 +146,24 @@ export function TeamProvider({ children }: { children: ReactNode }) {
   );
 
   return <TeamContext.Provider value={value}>{children}</TeamContext.Provider>;
+}
+
+function normalizeTeam(raw: Partial<TeamData> | null): TeamData {
+  if (!raw || !Array.isArray(raw.members) || !Array.isArray(raw.events)) return cloneSeed();
+  const source = raw.ladders ?? [];
+  const ladders = source.map((ladder, index) => ({
+    ...ladder,
+    createdAt:
+      ladder.createdAt ||
+      new Date(Date.parse(`${ladder.date}T00:00:00`) + (source.length - index) * 1000).toISOString(),
+  }));
+  return {
+    members: raw.members,
+    events: raw.events,
+    ladders,
+    dice: raw.dice ?? [],
+    viewerId: raw.viewerId ?? null,
+  };
 }
 
 export function useTeam() {

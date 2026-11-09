@@ -27,7 +27,7 @@ export default function MyPage() {
       <PageHeader
         kicker="MY PAGE"
         title={viewer ? `${viewer.name}의 기록` : "본인을 선택하세요"}
-        description="팀원은 계정을 만들지 않고 자기 이름을 고릅니다. 여기서 본인 일정만 고치고, 본인이 걸린 사다리를 봅니다."
+        description="팀원은 계정을 만들지 않고 자기 이름을 고릅니다. 여기서 본인 일정만 고치고, 본인이 걸린 추첨을 봅니다."
       />
 
       <section>
@@ -107,9 +107,9 @@ export default function MyPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-bold">내가 걸린 사다리</h2>
+            <h2 className="text-lg font-bold">내가 걸린 추첨</h2>
             {myLadders.length === 0 ? (
-              <p className="mt-3 text-sm text-muted">아직 참여한 사다리가 없습니다.</p>
+              <p className="mt-3 text-sm text-muted">아직 참여한 추첨이 없습니다.</p>
             ) : (
               <ul className="mt-3 grid gap-2">
                 {myLadders.map((game) => {

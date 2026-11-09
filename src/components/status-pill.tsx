@@ -4,7 +4,7 @@ import { attendanceLabel } from "@/lib/format";
 const tone: Record<AttendanceStatus, string> = {
   going: "bg-green-soft text-green",
   absent: "bg-persimmon-soft text-persimmon",
-  undecided: "bg-[#efe6d4] text-muted",
+  undecided: "bg-line text-muted",
 };
 
 export function StatusPill({ status }: { status: AttendanceStatus }) {

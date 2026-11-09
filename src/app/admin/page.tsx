@@ -29,7 +29,7 @@ export default function AdminPage() {
       <PageHeader
         kicker="ADMIN"
         title="팀원 관리"
-        description="이름을 바꾸거나 목록에서 숨겨도 일정 참석과 사다리 결과는 지워지지 않습니다. 기록은 팀원 번호에 붙어 있고, 화면에는 지금 이름이 보입니다."
+        description="이름을 바꾸거나 목록에서 숨겨도 일정 참석과 추첨 결과는 지워지지 않습니다. 기록은 팀원 번호에 붙어 있고, 화면에는 지금 이름이 보입니다."
         action={
           <button
             type="button"
@@ -57,7 +57,7 @@ export default function AdminPage() {
         empty="숨긴 팀원이 없습니다."
       />
 
-      <section className="rounded-2xl border border-ink bg-card p-4 shadow-[4px_4px_0_#241c14]">
+      <section className="rounded-2xl border border-line bg-card p-4 shadow-[0_12px_30px_-24px_#172033]">
         <h2 className="text-lg font-bold">팀원 추가</h2>
         <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_1fr_auto]">
           <input
@@ -77,7 +77,7 @@ export default function AdminPage() {
           <button
             type="button"
             onClick={submitMember}
-            className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-card"
+            className="rounded-xl bg-green px-4 py-2 text-sm font-semibold text-white"
           >
             추가
           </button>
@@ -139,7 +139,7 @@ function MemberList({
                   </button>
                 </div>
                 <p className="mt-2 text-xs text-muted">
-                  일정 {counts.schedules}건 · 사다리 {counts.games}건
+                  일정 {counts.schedules}건 · 추첨 {counts.games}건
                 </p>
               </li>
             );

@@ -11,7 +11,7 @@ const noto = Noto_Sans_KR({
 
 export const metadata: Metadata = {
   title: "글로컬 공책",
-  description: "팀 일정과 사다리 기록을 남기는 공책",
+  description: "팀 일정과 추첨 기록을 남기는 공책",
   applicationName: "글로컬 공책",
   appleWebApp: {
     capable: true,
@@ -24,13 +24,13 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#efe7d6",
+  themeColor: "#f4f7fb",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ko" className={`${noto.variable} h-dvh antialiased`}>
-      <body className="flex h-dvh justify-center overflow-hidden bg-[#d7cdb8]">
+      <body className="flex h-dvh justify-center overflow-hidden bg-[#1b2434]">
         <AppShell>{children}</AppShell>
       </body>
     </html>

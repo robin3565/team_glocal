@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #efe7d6;
-  --foreground: #241c14;
-  --card: #fffaf2;
-  --line: #e2d5be;
-  --muted: #6f6456;
-  --green: #1f6b4a;
-  --green-soft: #e5f2eb;
-  --persimmon: #d85a2a;
-  --persimmon-soft: #fde7dc;
-  --ink: #241c14;
+  --background: #f4f7fb;
+  --foreground: #172033;
+  --card: #ffffff;
+  --line: #d7e1ef;
+  --muted: #5c6b82;
+  --green: #3157e6;
+  --green-soft: #e7edff;
+  --persimmon: #e23d68;
+  --persimmon-soft: #ffe6ee;
+  --ink: #172033;
 }
 
 @theme inline {
@@ -33,7 +33,7 @@ body {
 }
 
 body {
-  background: #d7cdb8;
+  background: #1b2434;
   color: var(--foreground);
   font-family: var(--font-sans), "Malgun Gothic", sans-serif;
 }
@@ -57,9 +57,49 @@ textarea {
   }
 }
 
+.dice-face.is-rolling {
+  animation: dice-tumble 0.42s linear infinite;
+}
+
+.dice-face.is-landed {
+  animation: dice-land 0.48s cubic-bezier(0.2, 1.35, 0.4, 1) both;
+}
+
+@keyframes dice-tumble {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  30% {
+    transform: translateY(-26px) rotate(110deg) scale(1.06);
+  }
+  60% {
+    transform: translateY(-6px) rotate(230deg) scale(0.96);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg) scale(1);
+  }
+}
+
+@keyframes dice-land {
+  0% {
+    transform: translateY(-30px) rotate(-16deg) scale(0.88);
+  }
+  60% {
+    transform: translateY(5px) rotate(5deg) scale(1.05);
+  }
+  100% {
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ladder-path {
     animation: none;
     stroke-dashoffset: 0;
+  }
+
+  .dice-face.is-rolling,
+  .dice-face.is-landed {
+    animation: none;
   }
 }

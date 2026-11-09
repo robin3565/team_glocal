@@ -32,15 +32,24 @@ export type LadderRecord = {
   id: string;
   title: string;
   date: string;
+  createdAt: string;
   order: string[];
   prizes: string[];
   links: boolean[][];
   results: LadderResult[];
 };
 
+export type DiceRecord = {
+  id: string;
+  date: string;
+  createdAt: string;
+  faces: number[];
+};
+
 export type TeamData = {
   members: Member[];
   events: TeamEvent[];
   ladders: LadderRecord[];
+  dice: DiceRecord[];
   viewerId: string | null;
 };

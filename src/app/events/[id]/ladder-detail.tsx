@@ -21,9 +21,9 @@ export function LadderDetail({ id }: { id: string }) {
   if (!game) {
     return (
       <div className="grid gap-3">
-        <h1 className="text-2xl font-bold">사다리 기록을 찾지 못했습니다</h1>
+        <h1 className="text-2xl font-bold">추첨 기록을 찾지 못했습니다</h1>
         <Link href="/events" className="text-sm font-semibold text-green">
-          사다리로
+          추첨으로
         </Link>
       </div>
     );
@@ -33,7 +33,7 @@ export function LadderDetail({ id }: { id: string }) {
     <div className="grid gap-6">
       <div>
         <Link href="/events" className="text-sm font-semibold text-green">
-          사다리
+          추첨
         </Link>
         <h1 className="mt-2 text-3xl font-bold">{game.title}</h1>
         <p className="mt-2 text-sm text-muted">{formatFullDate(game.date)}</p>

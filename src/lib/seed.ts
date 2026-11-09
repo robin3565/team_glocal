@@ -43,7 +43,7 @@ export const seedData: TeamData = {
       date: "2026-12-19",
       time: "18:30",
       place: "을지로 골목",
-      note: "한 해를 마무리합니다. 2차 장소는 사다리로 정할 예정이에요.",
+      note: "한 해를 마무리합니다. 2차 장소는 추첨으로 정할 예정이에요.",
       attendance: [
         { memberId: "m1", status: "going", memo: "" },
         { memberId: "m2", status: "undecided", memo: "" },
@@ -75,6 +75,7 @@ export const seedData: TeamData = {
     },
   ],
   ladders: [],
+  dice: [],
 };
 
 export function cloneSeed(): TeamData {

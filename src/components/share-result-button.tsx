@@ -24,7 +24,7 @@ export function ShareResultButton({ title, text }: { title: string; text: string
       <button
         type="button"
         onClick={() => void share()}
-        className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-card"
+        className="rounded-xl bg-green px-4 py-2 text-sm font-semibold text-white"
       >
         결과 공유
       </button>

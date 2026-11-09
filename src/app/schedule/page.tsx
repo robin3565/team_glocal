@@ -104,7 +104,7 @@ export default function SchedulePage() {
                 {day}
                 <span
                   className={`mt-0.5 size-1 rounded-full ${
-                    dayEvents.length === 0 ? "bg-transparent" : isSelected ? "bg-card" : "bg-persimmon"
+                    dayEvents.length === 0 ? "bg-transparent" : isSelected ? "bg-card" : "bg-green"
                   }`}
                 />
               </button>
@@ -116,7 +116,7 @@ export default function SchedulePage() {
       <button
         type="button"
         onClick={() => setAdding(true)}
-        className="rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-card"
+        className="rounded-xl bg-green px-4 py-2.5 text-sm font-semibold text-white"
       >
         일정 추가
       </button>
@@ -134,7 +134,7 @@ export default function SchedulePage() {
             ) : (
               <ul className="mt-3 grid gap-3">
                 {selectedEvents.map((event) => (
-                  <li key={event.id} className="rounded-2xl border border-ink bg-card p-4">
+                  <li key={event.id} className="rounded-2xl border border-line bg-card p-4 shadow-[0_12px_30px_-24px_#172033]">
                       <div className="flex items-baseline justify-between gap-3">
                         <h3 className="text-lg font-bold">{event.title}</h3>
                         <p className="shrink-0 text-sm text-muted">{event.time}</p>
@@ -208,7 +208,7 @@ function EventForm({
 
   return (
     <form
-      className="grid gap-3 rounded-2xl border border-ink bg-card p-4 shadow-[4px_4px_0_#241c14]"
+      className="grid gap-3 rounded-2xl border border-line bg-card p-4 shadow-[0_12px_30px_-24px_#172033]"
       onSubmit={(event) => {
         event.preventDefault();
         submit();
@@ -264,7 +264,7 @@ function EventForm({
       </label>
       {error ? <p className="text-sm text-persimmon">{error}</p> : null}
       <div className="flex gap-2">
-        <button type="submit" className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-card">
+        <button type="submit" className="rounded-xl bg-green px-4 py-2 text-sm font-semibold text-white">
           저장
         </button>
         <button type="button" onClick={onCancel} className="rounded-full border border-line px-4 py-2 text-sm font-semibold">

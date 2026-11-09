@@ -21,6 +21,12 @@ export function formatDate(isoDate: string) {
   }).format(new Date(year, month - 1, day));
 }
 
+export function formatClock(isoDateTime: string) {
+  const date = new Date(isoDateTime);
+  if (Number.isNaN(date.getTime())) return "";
+  return new Intl.DateTimeFormat("ko-KR", { hour: "numeric", minute: "2-digit" }).format(date);
+}
+
 export function formatFullDate(isoDate: string) {
   const [year, month, day] = isoDate.split("-").map(Number);
   return new Intl.DateTimeFormat("ko-KR", {

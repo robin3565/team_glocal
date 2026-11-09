@@ -1,16 +1,18 @@
-const winnerColor = "#1f6b4a";
-const pathColors = ["#1f6b4a", "#d85a2a", "#2457c5", "#8a4b1f", "#6b3fa0", "#0e7490"];
+const winnerColor = "#3157e6";
+const pathColors = ["#3157e6", "#e23d68", "#0f9f8a", "#7c5cbf", "#d4892a", "#2f7de1"];
 
 export function LadderBoard({
   names,
   prizes,
   links,
   reveal,
+  fit = false,
 }: {
   names: string[];
   prizes: string[];
   links: boolean[][];
   reveal: boolean;
+  fit?: boolean;
 }) {
   const columnWidth = 56;
   const rowHeight = 28;
@@ -37,11 +39,13 @@ export function LadderBoard({
 
   return (
     <div className="w-full">
-      <div className="grid" style={{ gridTemplateColumns: `repeat(${names.length}, minmax(0, 1fr))` }}>
+      <div className="grid shrink-0" style={{ gridTemplateColumns: `repeat(${names.length}, minmax(0, 1fr))` }}>
         {names.map((name, index) => (
           <p
             key={`${name}-${index}`}
-            className="mx-auto h-14 text-[11px] font-semibold leading-none [text-orientation:upright] [writing-mode:vertical-rl]"
+            className={`mx-auto font-semibold leading-none [text-orientation:upright] [writing-mode:vertical-rl] ${
+              fit ? "h-10 text-[10px]" : "h-14 text-[11px]"
+            }`}
           >
             {name}
           </p>
@@ -51,7 +55,8 @@ export function LadderBoard({
         viewBox={`0 0 ${width} ${height}`}
         role="img"
         aria-label="사다리 그림"
-        className="mt-2 h-auto w-full"
+        preserveAspectRatio="xMidYMid meet"
+        className={fit ? "mt-1 h-auto w-full" : "mt-2 h-auto w-full"}
       >
         {names.map((_, column) => (
           <line
@@ -60,7 +65,7 @@ export function LadderBoard({
             x2={xOf(column)}
             y1={0}
             y2={height}
-            stroke="#c9b89a"
+            stroke="#c5d2e4"
             strokeWidth="3"
           />
         ))}
@@ -73,7 +78,7 @@ export function LadderBoard({
                 x2={xOf(column + 1)}
                 y1={rowHeight / 2 + row * rowHeight}
                 y2={rowHeight / 2 + row * rowHeight}
-                stroke="#c9b89a"
+                stroke="#c5d2e4"
                 strokeWidth="3"
               />
             ) : null,
@@ -105,9 +110,9 @@ export function LadderBoard({
         {prizes.map((prize, index) => (
           <p
             key={`${prize}-${index}`}
-            className={`mx-auto h-10 text-[11px] leading-none [text-orientation:upright] [writing-mode:vertical-rl] ${
-              prize === "당첨" ? "font-bold text-green" : "text-muted"
-            }`}
+            className={`mx-auto leading-none [text-orientation:upright] [writing-mode:vertical-rl] ${
+              fit ? "h-8 text-[10px]" : "h-10 text-[11px]"
+            } ${prize === "당첨" ? "font-bold text-green" : "text-muted"}`}
           >
             {prize}
           </p>

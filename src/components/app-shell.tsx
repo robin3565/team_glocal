@@ -9,7 +9,7 @@ import { TeamProvider, useTeam } from "@/lib/team-store";
 const tabs = [
   { href: "/", label: "홈", icon: "home" },
   { href: "/schedule", label: "일정", icon: "calendar" },
-  { href: "/events", label: "사다리", icon: "ladder" },
+  { href: "/events", label: "추첨", icon: "draw" },
   { href: "/me", label: "마이", icon: "user" },
   { href: "/admin", label: "관리", icon: "gear" },
 ] as const;
@@ -17,11 +17,11 @@ const tabs = [
 export function AppShell({ children }: { children: ReactNode }) {
   return (
     <TeamProvider>
-      <div className="flex h-dvh w-full max-w-[430px] flex-col overflow-hidden bg-background">
+      <div className="flex h-dvh w-full max-w-[430px] flex-col overflow-hidden bg-[linear-gradient(180deg,#f7f9fd_0%,#eef3fb_100%)]">
         <Suspense fallback={<AppHeaderFallback />}>
           <AppHeader />
         </Suspense>
-        <main className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-4 py-4">{children}</main>
+        <main className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-y-contain px-4 py-4">{children}</main>
         <Suspense fallback={<TabBarFallback />}>
           <TabBar />
         </Suspense>
@@ -43,23 +43,23 @@ function AppHeader() {
   const nested = pathname.split("/").filter(Boolean).length > 1;
 
   return (
-    <header className="grid shrink-0 grid-cols-[2.5rem_1fr_2.5rem] items-center gap-2 border-b border-line bg-background px-3 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3">
+    <header className="grid shrink-0 grid-cols-[2.5rem_1fr_2.5rem] items-center gap-2 bg-card/80 px-3 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 shadow-[0_1px_0_var(--line)] backdrop-blur">
       {nested ? (
         <Link
           href={parentHref(pathname)}
-          className="grid size-10 place-items-center rounded-full text-lg font-semibold"
+          className="grid size-10 place-items-center rounded-xl bg-green-soft text-lg font-semibold text-green"
           aria-label="뒤로"
         >
           ‹
         </Link>
       ) : (
-        <span className="grid size-10 place-items-center text-xs font-bold tracking-widest text-green">G</span>
+        <span className="grid size-10 place-items-center rounded-xl bg-green text-xs font-bold text-white">G</span>
       )}
       <p className="truncate text-center text-base font-bold">글로컬 공책</p>
       <Link
         href="/me"
         aria-label={viewer ? `${memberName(members, viewer.id)} 마이페이지` : "본인 선택"}
-        className="grid size-10 place-items-center rounded-full bg-green text-sm font-bold text-white"
+        className="grid size-10 place-items-center rounded-xl bg-ink text-sm font-bold text-white"
       >
         {viewer ? viewer.name.slice(0, 1) : "나"}
       </Link>
@@ -69,7 +69,7 @@ function AppHeader() {
 
 function AppHeaderFallback() {
   return (
-    <header className="grid shrink-0 grid-cols-[2.5rem_1fr_2.5rem] items-center border-b border-line px-3 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3">
+    <header className="grid shrink-0 grid-cols-[2.5rem_1fr_2.5rem] items-center bg-card px-3 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 shadow-[0_1px_0_var(--line)]">
       <span />
       <p className="text-center text-base font-bold">글로컬 공책</p>
       <span />
@@ -82,7 +82,7 @@ function TabBar() {
 
   return (
     <nav
-      className="grid shrink-0 grid-cols-5 border-t border-line bg-card pb-[max(0.4rem,env(safe-area-inset-bottom))] pt-1"
+      className="grid shrink-0 grid-cols-5 gap-1 bg-card/90 px-2 pb-[max(0.45rem,env(safe-area-inset-bottom))] pt-2 shadow-[0_-1px_0_var(--line)] backdrop-blur"
       aria-label="주요 메뉴"
     >
       {tabs.map((tab) => {
@@ -92,8 +92,8 @@ function TabBar() {
             key={tab.href}
             href={tab.href}
             aria-current={active ? "page" : undefined}
-            className={`flex flex-col items-center gap-0.5 px-1 py-1 text-[11px] font-semibold ${
-              active ? "text-green" : "text-muted"
+            className={`flex flex-col items-center gap-0.5 rounded-2xl px-1 py-1.5 text-[11px] font-semibold ${
+              active ? "bg-green-soft text-green" : "text-muted"
             }`}
           >
             <TabIcon name={tab.icon} />
@@ -108,7 +108,7 @@ function TabBar() {
 function TabBarFallback() {
   return (
     <nav
-      className="grid shrink-0 grid-cols-5 border-t border-line bg-card pb-[max(0.4rem,env(safe-area-inset-bottom))] pt-1"
+      className="grid shrink-0 grid-cols-5 gap-1 bg-card/90 px-2 pb-[max(0.45rem,env(safe-area-inset-bottom))] pt-2 shadow-[0_-1px_0_var(--line)] backdrop-blur"
       aria-label="주요 메뉴"
     >
       {tabs.map((tab) => (
@@ -153,10 +153,13 @@ function TabIcon({ name }: { name: (typeof tabs)[number]["icon"] }) {
       </svg>
     );
   }
-  if (name === "ladder") {
+  if (name === "draw") {
     return (
       <svg {...props}>
-        <path d="M7 3v18M17 3v18M7 8h10M7 13h10M7 18h10" />
+        <rect x="4" y="4" width="16" height="16" rx="3" />
+        <circle cx="9" cy="9" r="1.1" fill="currentColor" stroke="none" />
+        <circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none" />
+        <circle cx="15" cy="15" r="1.1" fill="currentColor" stroke="none" />
       </svg>
     );
   }
@@ -190,8 +193,10 @@ export function PageHeader({
   return (
     <div className="flex flex-col gap-3">
       <div>
-        <p className="text-[11px] font-semibold tracking-[0.16em] text-green">{kicker}</p>
-        <h1 className="mt-1 text-2xl font-bold tracking-tight">{title}</h1>
+        <p className="inline-flex rounded-full bg-green-soft px-2.5 py-1 text-[11px] font-semibold tracking-[0.14em] text-green">
+          {kicker}
+        </p>
+        <h1 className="mt-3 text-2xl font-bold tracking-tight">{title}</h1>
         {description ? <p className="mt-2 text-sm leading-6 text-muted">{description}</p> : null}
       </div>
       {action}
